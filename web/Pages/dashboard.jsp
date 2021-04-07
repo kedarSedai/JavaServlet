@@ -11,7 +11,8 @@
     <!-- Sidebar -->
 
     <div class="container">
-        <h1>Welcome</h1>
+        <h1>Welcome <%= session.getAttribute("full_name") %>
+        </h1>
     </div>
 </div>
 

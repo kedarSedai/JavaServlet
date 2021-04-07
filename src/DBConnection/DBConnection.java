@@ -1,6 +1,10 @@
 package DBConnection;
 
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Created by kedar on 3/29/2021.
@@ -19,7 +23,7 @@ public class DBConnection {
             String password = "root";
 
             //Establish Connection
-            con = DriverManager.getConnection(DB_URL, name, password);
+            this.con = DriverManager.getConnection(DB_URL, name, password);
 
             System.out.println("Database Connected !!! ");
 

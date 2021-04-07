@@ -12,6 +12,7 @@
 
     <!-- Sidebar -->
     <%@include file="../includes/sidebar.jsp" %>
+
     <div class="container">
         <div class="table-responsive">
             <table class="table">
@@ -23,18 +24,20 @@
                     <th>Role</th>
                 </tr>
 
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a href="#">View Details</a></td>
-                </tr>
+                <c:forEach items="${userList}" var="user">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.full_name}</td>
+                        <td>${user.username}</td>
+                        <td>${user.password}</td>
+                        <td>${user.role}</td>
+                        <td><a href="user?page=listUser">View Details</a></td>
+                    </tr>
+                </c:forEach>
 
             </table>
         </div>
-        <a href=""><h4>Add New User</h4></a>
+        <a href="user?page=newUsers"><h4>Add New User</h4></a>
     </div>
 
 </div>

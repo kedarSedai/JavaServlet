@@ -1,5 +1,6 @@
 package Controller;
 
+import Hashing.HashingPassword;
 import Model.User;
 import Service.UserService;
 
@@ -9,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,13 +23,14 @@ import java.util.List;
 public class UserServlet extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
-
         String action = request.getParameter("page");
         System.out.println(action);
 
-        if (action.equalsIgnoreCase("login")) {
+        if (action.equalsIgnoreCase("login"))
+
+        {
             String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            String password = HashingPassword.hashPassword(request.getParameter("password"));
             System.out.println(username + " " + password + " ");
 
             User user = new UserService().getUser(username, password);
@@ -49,31 +55,39 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
 
 
         //To redirect in Register Page
-        if(action.equalsIgnoreCase("newUsers")){
+        if (action.equalsIgnoreCase("newUsers"))
+
+        {
             RequestDispatcher rd = request.getRequestDispatcher("Pages/register.jsp");
             rd.forward(request, response);
         }
 
 
-        if (action.equalsIgnoreCase("register")) {
+        if (action.equalsIgnoreCase("register"))
+
+        {
             User user = new User();
             System.out.println(request.getParameter("full_name"));
             user.setFull_name(request.getParameter("full_name"));
             user.setUsername(request.getParameter("username"));
-            user.setPassword(request.getParameter("password"));
+            user.setPassword(HashingPassword.hashPassword(request.getParameter("password")));
             user.setRole(request.getParameter("role"));
             new UserService().insertUser(user);
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
 
-        if (action.equalsIgnoreCase("index")) {
+        if (action.equalsIgnoreCase("index"))
+
+        {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
 
 
-        if (action.equalsIgnoreCase("logout")) {
+        if (action.equalsIgnoreCase("logout"))
+
+        {
             HttpSession session = request.getSession(false);
             session.invalidate();
             request.setAttribute("msg", "Logout Success");
@@ -82,7 +96,9 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             rd.forward(request, response);
         }
 
-        if (action.equalsIgnoreCase("addUser")) {
+        if (action.equalsIgnoreCase("addUser"))
+
+        {
             User user = new User();
             user.setFull_name(request.getParameter("full_name"));
             user.setUsername(request.getParameter("username"));
@@ -95,7 +111,9 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             rd.forward(request, response);
         }
 
-        if (action.equalsIgnoreCase("listUser")) {
+        if (action.equalsIgnoreCase("listUser"))
+
+        {
             User user = new User();
             List<User> userList = new UserService().getUserList();
             request.setAttribute("userList", userList);
@@ -103,7 +121,16 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("Pages/list_user.jsp");
             rd.forward(request, response);
         }
-        if (action.equalsIgnoreCase("deleteUser")) {
+
+        if (action.equalsIgnoreCase("home"))
+
+        {
+            RequestDispatcher rd = request.getRequestDispatcher("Pages/dashboard.jsp");
+            rd.forward(request, response);
+        }
+        if (action.equalsIgnoreCase("deleteUser"))
+
+        {
             int id = Integer.parseInt(request.getParameter("id"));
             UserService userService = new UserService();
             userService.deleteUser(id);
@@ -112,8 +139,22 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("Pages/list_user.jsp");
             rd.forward(request, response);
         }
+
+        if (action.equalsIgnoreCase("userEdit"))
+
+        {
+            int id = Integer.parseInt(request.getParameter("id"));
+            System.out.println(id);
+            User user = new UserService().getUserRow(id);
+            request.setAttribute("id", id);
+            request.setAttribute("user", user);
+            RequestDispatcher rd = request.getRequestDispatcher("Pages/update_user.jsp");
+            rd.forward(request, response);
+        }
 //
-        if (action.equalsIgnoreCase("editUser")) {
+        if (action.equalsIgnoreCase("editUser"))
+
+        {
             User user = new User();
             int id = Integer.parseInt(request.getParameter("id"));
             user.setFull_name(request.getParameter("full_name"));
@@ -130,6 +171,7 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("Pages/list_user.jsp");
             rd.forward(request, response);
         }
+
     }
 
 

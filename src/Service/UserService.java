@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class UserService {
 
+
     public User getUser(String username, String password) {
 
         User user = null;
@@ -96,26 +97,25 @@ public class UserService {
         }
     }
 
-//    public User getUserRow(int id) {
-//        User user = new User();
-//        String query = "select * from user where id=?";
-//        PreparedStatement pstm = new DBConnection().getStatement(query);
-//        try {
-//            pstm.setInt(1, id);
-//            ResultSet rs = pstm.executeQuery();
-//            while (rs.next()) {
-//                user.setId(rs.getInt("id"));
-//                user.setFull_name(rs.getString("fullName"));
-//                user.setUsername(rs.getString("userName"));
-//                user.setPassword(rs.getString("password"));
-//                user.setRole(rs.getString("role"));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return user;
-//    }
-
+    public User getUserRow(int id){
+        User user = new User();
+        String query = "select * from user where id=?";
+        PreparedStatement pstm = new DBConnection().getStatement(query);
+        try {
+            pstm.setInt(1,id);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()){
+                user.setId(rs.getInt("id"));
+                user.setFull_name(rs.getString("full_name"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
     public void editUser(int id, User user) throws SQLException {
 
         String query = "update user set full_name=?,userName=?,password=?," +
