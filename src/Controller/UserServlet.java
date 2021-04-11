@@ -62,6 +62,15 @@ public class UserServlet extends javax.servlet.http.HttpServlet {
             rd.forward(request, response);
         }
 
+        if (action.equalsIgnoreCase("userDetails")) {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            User user = new UserService().getUserRow(id);
+            request.setAttribute("id", id);
+            request.setAttribute("user", user);
+            RequestDispatcher rd = request.getRequestDispatcher("Pages/user_details.jsp");
+            rd.forward(request, response);
+        }
 
         if (action.equalsIgnoreCase("register"))
 

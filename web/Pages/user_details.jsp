@@ -24,27 +24,27 @@
 
                 <tr>
                     <th>id</th>
-                    <td></td>
+                    <td>${user.id}</td>
                 </tr>
                 <tr>
                     <th>Full Name</th>
-                    <td></td>
+                    <td>${user.full_name}</td>
                 </tr>
                 <tr>
                     <th>Username</th>
-                    <td></td>
+                    <td>${user.username}</td>
                 </tr>
                 <tr>
                     <th>Password</th>
-                    <td></td>
+                    <td>${user.password}</td>
                 </tr>
                 <tr>
                     <th>Role</th>
-                    <td></td>
+                    <td>${user.role}</td>
                 </tr>
                 <tr>
-                    <td><a href="#">Edit</a></td>
-                    <td><a href="#">Delete</a></td>
+                    <td><a href="user?page=userEdit&id=${user.id}">Edit</a></td>
+                    <td><a href="user?page=deleteUser&id=${user.id}">Delete</a></td>
                 </tr>
             </table>
         </div>

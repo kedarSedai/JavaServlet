@@ -18,7 +18,7 @@ public class UserService {
     public User getUser(String username, String password) {
 
         User user = null;
-        String query = "select * from user where userName=? and password=?";
+        String query = "select * from users where userName=? and password=?";
 
         PreparedStatement pstm = new DBConnection().getStatement(query);
 
@@ -47,7 +47,7 @@ public class UserService {
 
     public List<User> getUserList() {
         List<User> userList = new ArrayList<>();
-        String query = "select * from user";
+        String query = "select * from users";
         System.out.println(query);
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
@@ -71,7 +71,7 @@ public class UserService {
     }
 
     public void insertUser(User user) {
-        String query = "insert into user (full_name,username,password,role)" +
+        String query = "insert into users (full_name,username,password,role)" +
                 "values(?,?,?,?)";
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
@@ -87,7 +87,7 @@ public class UserService {
     }
 
     public void deleteUser(int id) {
-        String query = "delete from user where id=?";
+        String query = "delete from users where id=?";
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
             pstm.setInt(1, id);
@@ -99,7 +99,7 @@ public class UserService {
 
     public User getUserRow(int id){
         User user = new User();
-        String query = "select * from user where id=?";
+        String query = "select * from users where id=?";
         PreparedStatement pstm = new DBConnection().getStatement(query);
         try {
             pstm.setInt(1,id);
@@ -118,7 +118,7 @@ public class UserService {
     }
     public void editUser(int id, User user) throws SQLException {
 
-        String query = "update user set full_name=?,userName=?,password=?," +
+        String query = "update users set full_name=?,userName=?,password=?," +
                 "role=? where id=?";
         PreparedStatement pstm = new DBConnection().getStatement(query);
         pstm.setString(1, user.getFull_name());

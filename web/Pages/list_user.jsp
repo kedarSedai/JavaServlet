@@ -31,7 +31,7 @@
                         <td>${user.username}</td>
                         <td>${user.password}</td>
                         <td>${user.role}</td>
-                        <td><a href="user?page=listUser">View Details</a></td>
+                        <td><a href="user?page=userDetails&id=${user.id}">View Details</a></td>
                     </tr>
                 </c:forEach>
 

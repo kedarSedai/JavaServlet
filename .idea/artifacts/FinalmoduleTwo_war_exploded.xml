@@ -6,11 +6,6 @@
         <element id="directory" name="classes">
           <element id="module-output" name="FinalmoduleTwo" />
         </element>
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="mysql-connector-java-5.1.44-bin" />
-          <element id="library" level="project" name="javax.servlet.jsp.jstl-3.1" />
-          <element id="library" level="project" name="jstl-1.2" />
-        </element>
       </element>
       <element id="javaee-facet-resources" facet="FinalmoduleTwo/web/Web2" />
       <element id="javaee-facet-resources" facet="FinalmoduleTwo/web/Web" />
